@@ -8,6 +8,7 @@ import { CommuniquesModule } from './modules/communiques/communiques.module';
 import { ConfusionRadarModule } from './modules/confusion-radar/confusion-radar.module';
 import { ClarificationsModule } from './modules/clarifications/clarifications.module';
 import { GapDetectorModule } from './modules/gap-detector/gap-detector.module';
+import { SimplifierModule } from './modules/simplifier/simplifier.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { TranslationModule } from './modules/translation/translation.module';
 
@@ -23,6 +24,7 @@ import { TranslationModule } from './modules/translation/translation.module';
     ConfusionRadarModule,
     ClarificationsModule,
     GapDetectorModule,
+    SimplifierModule,
     QuestionsModule,
     TranslationModule,
   ],
