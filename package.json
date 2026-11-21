@@ -1,0 +1,10 @@
+{
+  "name": "pulso-vivo-bolivia",
+  "private": true,
+  "version": "0.1.0",
+  "description": "IA para una comunicación institucional más clara, inclusiva y accesible (español y quechua)",
+  "scripts": {
+    "dev:api": "pnpm --filter api dev",
+    "dev:web": "pnpm --filter web dev"
+  }
+}
