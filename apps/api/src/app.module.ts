@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AssistantModule } from './modules/assistant/assistant.module';
 import { AudioModule } from './modules/audio/audio.module';
 import { CommuniquesModule } from './modules/communiques/communiques.module';
+import { ConfusionRadarModule } from './modules/confusion-radar/confusion-radar.module';
 import { GapDetectorModule } from './modules/gap-detector/gap-detector.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { TranslationModule } from './modules/translation/translation.module';
@@ -18,6 +19,7 @@ import { TranslationModule } from './modules/translation/translation.module';
     AssistantModule,
     AudioModule,
     CommuniquesModule,
+    ConfusionRadarModule,
     GapDetectorModule,
     QuestionsModule,
     TranslationModule,

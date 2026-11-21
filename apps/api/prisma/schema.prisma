@@ -24,6 +24,17 @@ enum QuestionStatus {
   CLOSED
 }
 
+enum ConfusionClusterStatus {
+  ACTIVE
+  RESOLVED
+}
+
+enum ClarificationStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+}
+
 model Communique {
   id                String                  @id @default(uuid()) @db.Uuid
   slug              String                  @unique @db.VarChar(180)
@@ -37,6 +48,8 @@ model Communique {
   updatedAt         DateTime                @updatedAt @db.Timestamptz(6)
   translations      CommuniqueTranslation[]
   questions         Question[]
+  confusionClusters ConfusionCluster[]
+  clarifications    Clarification[]
 
   @@index([status, publishedAt])
 }
@@ -56,16 +69,53 @@ model CommuniqueTranslation {
 }
 
 model Question {
-  id           String          @id @default(uuid()) @db.Uuid
-  communiqueId String?         @db.Uuid
-  text         String          @db.Text
-  answer       String?         @db.Text
-  language     ContentLanguage @default(ES)
-  status       QuestionStatus  @default(PENDING)
-  createdAt    DateTime        @default(now()) @db.Timestamptz(6)
-  updatedAt    DateTime        @updatedAt @db.Timestamptz(6)
-  communique   Communique?     @relation(fields: [communiqueId], references: [id], onDelete: SetNull)
+  id           String            @id @default(uuid()) @db.Uuid
+  communiqueId String?           @db.Uuid
+  clusterId    String?           @db.Uuid
+  text         String            @db.Text
+  answer       String?           @db.Text
+  language     ContentLanguage   @default(ES)
+  status       QuestionStatus    @default(PENDING)
+  createdAt    DateTime          @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime          @updatedAt @db.Timestamptz(6)
+  communique   Communique?       @relation(fields: [communiqueId], references: [id], onDelete: SetNull)
+  cluster      ConfusionCluster? @relation(fields: [clusterId], references: [id], onDelete: SetNull)
 
   @@index([communiqueId, status])
+  @@index([clusterId])
   @@index([status, createdAt])
+}
+
+model ConfusionCluster {
+  id             String                 @id @default(uuid()) @db.Uuid
+  communiqueId   String?                @db.Uuid
+  title          String                 @db.VarChar(240)
+  summary        String                 @db.Text
+  status         ConfusionClusterStatus @default(ACTIVE)
+  createdAt      DateTime               @default(now()) @db.Timestamptz(6)
+  updatedAt      DateTime               @updatedAt @db.Timestamptz(6)
+  communique     Communique?            @relation(fields: [communiqueId], references: [id], onDelete: SetNull)
+  questions      Question[]
+  clarifications Clarification[]
+
+  @@index([communiqueId, status])
+  @@index([status, updatedAt])
+}
+
+model Clarification {
+  id           String              @id @default(uuid()) @db.Uuid
+  communiqueId String?             @db.Uuid
+  clusterId    String?             @db.Uuid
+  title        String              @db.VarChar(240)
+  content      String              @db.Text
+  status       ClarificationStatus @default(DRAFT)
+  publishedAt  DateTime?           @db.Timestamptz(6)
+  createdAt    DateTime            @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime            @updatedAt @db.Timestamptz(6)
+  communique   Communique?         @relation(fields: [communiqueId], references: [id], onDelete: SetNull)
+  cluster      ConfusionCluster?   @relation(fields: [clusterId], references: [id], onDelete: SetNull)
+
+  @@index([communiqueId, status])
+  @@index([clusterId])
+  @@index([status, updatedAt])
 }
