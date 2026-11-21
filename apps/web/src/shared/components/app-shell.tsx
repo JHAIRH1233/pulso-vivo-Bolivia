@@ -32,6 +32,7 @@ export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
               <Link href="/">Inicio</Link>
               <Link href="/#comunicados">Ver comunicados</Link>
               <Link href="/preguntar">Preguntar a Rimay</Link>
+              <Link href="/dashboard">Panel institucional (demo)</Link>
               <Link href="/#para-instituciones">Instituciones</Link>
             </nav>
           </details>
@@ -68,7 +69,7 @@ export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
           >
             <h2>Instituciones</h2>
             <Link href="/#para-instituciones">Cómo funciona</Link>
-            <Link href="/#como-funciona">Conocer el proceso</Link>
+            <Link href="/dashboard">Panel institucional (demo)</Link>
           </nav>
         </div>
         <div className="site-footer__bottom">
