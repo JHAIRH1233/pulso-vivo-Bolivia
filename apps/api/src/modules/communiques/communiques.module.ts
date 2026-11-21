@@ -7,5 +7,6 @@ import { CommuniquesService } from './communiques.service';
   imports: [DatabaseModule],
   controllers: [CommuniquesController],
   providers: [CommuniquesService],
+  exports: [CommuniquesService],
 })
 export class CommuniquesModule {}

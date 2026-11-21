@@ -44,3 +44,7 @@ La web pública muestra comunicados y un formulario de preguntas con datos de de
 ## Preguntas
 
 `POST /api/questions` recibe preguntas ciudadanas y las guarda con estado `PENDING` para revisión. El cuerpo admite `text` (obligatorio, máximo 2.000 caracteres), `language` (`ES` o `QU`, predeterminado `ES`) y `communiqueId` (UUID opcional, solo si corresponde a un comunicado publicado). No hay endpoints públicos para leer o responder preguntas pendientes.
+
+## Asistente ciudadano
+
+`POST /api/assistant/answer` responde una pregunta usando únicamente un comunicado publicado identificado por su `communiqueSlug`. El cuerpo admite `question` (máximo 2.000 caracteres) y `communiqueSlug` (máximo 180 caracteres). La respuesta incluye el texto, un fragmento textual de respaldo cuando existe y el comunicado utilizado. Las preguntas no se guardan; se envían junto con el contenido publicado al proveedor LLM configurado. No incluyas datos personales.
