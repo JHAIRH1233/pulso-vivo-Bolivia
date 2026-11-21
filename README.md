@@ -28,6 +28,18 @@ El endpoint es `POST http://localhost:3001/api/gap-detector/analyze` y recibe un
 
 Devuelve hallazgos de información faltante y ambigüedades. No requiere base de datos.
 
+## Simplificador
+
+Usa el mismo proveedor LLM y las mismas variables `LLM_API_KEY`, `LLM_BASE_URL` y `LLM_MODEL` del Gap Detector. El endpoint `POST http://localhost:3001/api/simplifier/simplify` recibe:
+
+```json
+{
+  "text": "Texto institucional que se desea simplificar."
+}
+```
+
+Devuelve `{ "simplifiedText": "..." }` en español claro, conservando el sentido y los datos del original. No requiere base de datos.
+
 ## Comunicados
 
 La API expone solo comunicados publicados; no ofrece operaciones de escritura sin autenticación.

@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommuniquesModule } from './modules/communiques/communiques.module';
 import { GapDetectorModule } from './modules/gap-detector/gap-detector.module';
+import { SimplifierModule } from './modules/simplifier/simplifier.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { GapDetectorModule } from './modules/gap-detector/gap-detector.module';
     }),
     CommuniquesModule,
     GapDetectorModule,
+    SimplifierModule,
   ],
   controllers: [AppController],
   providers: [AppService],
