@@ -51,6 +51,12 @@ La web pública muestra comunicados y un formulario de preguntas con datos de de
 
 Ambos endpoints requieren el encabezado `x-institution-api-key`, cuyo valor debe configurarse como `INSTITUTION_API_KEY`. Si la clave no está configurada, los endpoints responden `503`; una clave ausente o incorrecta responde `401`. No envíes datos personales en las preguntas.
 
+## Aclaraciones institucionales
+
+Las rutas para administrar aclaraciones requieren `x-institution-api-key`. `POST /api/clarifications` crea un borrador manual; opcionalmente puede vincularse con `clusterId` o con un `communiqueId` publicado. `POST /api/clarifications/drafts/from-cluster` genera una propuesta usando el resumen del grupo y el comunicado publicado asociado, sin enviar los textos originales de las preguntas al proveedor LLM.
+
+La revisión se realiza mediante `GET /api/clarifications?status=DRAFT|IN_REVIEW|PUBLISHED`, `PATCH /api/clarifications/:id` (solo borradores) y `POST /api/clarifications/:id/submit-for-review`. Solo una aclaración en revisión puede publicarse mediante `POST /api/clarifications/:id/publish`. La ruta pública `GET /api/clarifications/published` devuelve únicamente aclaraciones publicadas; admite el filtro opcional `communiqueId`. Las propuestas generadas por IA requieren edición y aprobación institucional antes de hacerse públicas.
+
 ## Asistente ciudadano
 
 `POST /api/assistant/answer` responde una pregunta usando únicamente un comunicado publicado identificado por su `communiqueSlug`. El cuerpo admite `question` (máximo 2.000 caracteres) y `communiqueSlug` (máximo 180 caracteres). La respuesta incluye el texto, un fragmento textual de respaldo cuando existe y el comunicado utilizado. Las preguntas no se guardan; se envían junto con el contenido publicado al proveedor LLM configurado. No incluyas datos personales.
