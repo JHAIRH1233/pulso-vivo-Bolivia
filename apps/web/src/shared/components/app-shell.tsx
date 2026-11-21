@@ -14,6 +14,10 @@ export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
               PULSO VIVO <span>Bolivia</span>
             </span>
           </Link>
+          <nav className="site-nav" aria-label="Navegación principal">
+            <Link href="/">Comunicados</Link>
+            <Link href="/preguntar">Hacer una pregunta</Link>
+          </nav>
         </div>
       </header>
       <main className="app-main">{children}</main>
