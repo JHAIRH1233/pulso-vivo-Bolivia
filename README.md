@@ -27,3 +27,12 @@ El endpoint es `POST http://localhost:3001/api/gap-detector/analyze` y recibe un
 ```
 
 Devuelve hallazgos de información faltante y ambigüedades. No requiere base de datos.
+
+## Comunicados
+
+La API expone solo comunicados publicados; no ofrece operaciones de escritura sin autenticación.
+
+- `GET /api/communiques?limit=20&offset=0` lista comunicados publicados con paginación (límite entre 1 y 100).
+- `GET /api/communiques/:slug` devuelve el contenido y las traducciones de un comunicado publicado. Los borradores, archivados o inexistentes responden `404`.
+
+Estos endpoints requieren que `DATABASE_URL` apunte a PostgreSQL y que las migraciones estén aplicadas. La conexión es bajo demanda, por lo que el resto de la API puede iniciar sin conectar a la base de datos.
