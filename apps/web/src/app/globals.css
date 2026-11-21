@@ -505,7 +505,8 @@ select {
 }
 
 .form-field textarea,
-.form-field select {
+.form-field select,
+.form-field input {
   width: 100%;
   min-height: 3rem;
   padding: 0.75rem;
@@ -542,6 +543,79 @@ select {
   border-radius: 0.65rem;
   background: var(--color-lavender);
   color: var(--color-text);
+}
+
+.button:disabled,
+.listen-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.communique-tools {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.communique-assistant {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.communique-assistant > p {
+  margin: 0;
+}
+
+.assistant-answer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.assistant-answer h3 {
+  margin: 0;
+}
+
+.assistant-answer > p {
+  white-space: pre-wrap;
+}
+
+.public-clarifications {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.public-clarifications h2 {
+  margin: 0;
+}
+
+.public-clarifications .dashboard-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.institution-login {
+  display: grid;
+  width: min(100%, 34rem);
+  gap: 1rem;
+  margin: clamp(2rem, 10vh, 7rem) auto;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.institution-login h1 {
+  margin: 0;
+}
+
+.institution-login > p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.institution-login .eyebrow {
+  color: var(--color-primary);
 }
 
 .site-footer {
@@ -1172,6 +1246,10 @@ select {
   box-shadow: var(--shadow-card);
 }
 
+.dashboard-header > .button {
+  justify-self: start;
+}
+
 .dashboard-header__copy p {
   margin: 0;
 }
@@ -1215,6 +1293,58 @@ select {
 .dashboard-page {
   display: grid;
   gap: 1.5rem;
+}
+
+.dashboard-tool {
+  display: grid;
+  gap: 1rem;
+}
+
+.dashboard-tool__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dashboard-tool__header p {
+  margin: 0;
+}
+
+.dashboard-tool__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.dashboard-tool .form-field input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem;
+  border: 1px solid #b9a9c7;
+  border-radius: 0.6rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.clarification-edit-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.gap-finding + .gap-finding {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.gap-finding h3 {
+  margin: 0;
+}
+
+.gap-finding p {
+  margin: 0.5rem 0;
 }
 
 .dashboard-page__header {

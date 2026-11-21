@@ -1,5 +1,12 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
+import {
+  INSTITUTION_SESSION_COOKIE,
+  isInstitutionSessionValid,
+} from '../../shared/api/institution-session';
+import { InstitutionLogin } from '../../shared/components/institution-login';
+import { InstitutionLogout } from '../../shared/components/institution-logout';
 
 const dashboardLinks = [
   { href: '/dashboard', label: 'Resumen' },
@@ -9,9 +16,14 @@ const dashboardLinks = [
   { href: '/aclaraciones', label: 'Aclaraciones' },
 ];
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  const token = (await cookies()).get(INSTITUTION_SESSION_COOKIE)?.value;
+  if (!isInstitutionSessionValid(token)) {
+    return <InstitutionLogin />;
+  }
+
   return (
     <div className="institutional-dashboard">
       <header className="dashboard-header">
@@ -19,6 +31,7 @@ export default function DashboardLayout({
           <p className="eyebrow">Rimay · Instituciones</p>
           <p className="dashboard-header__title">Panel de comunicación clara</p>
         </div>
+        <InstitutionLogout />
         <nav className="dashboard-nav" aria-label="Panel institucional">
           {dashboardLinks.map((link) => (
             <Link href={link.href} key={link.href}>
@@ -28,8 +41,8 @@ export default function DashboardLayout({
         </nav>
       </header>
       <p className="dashboard-demo-note" role="note">
-        Prototipo de demostración: los datos son ejemplos y las acciones no se
-        guardan.
+        Las acciones se procesan mediante la API institucional. Revisa toda
+        propuesta generada antes de publicarla.
       </p>
       {children}
     </div>

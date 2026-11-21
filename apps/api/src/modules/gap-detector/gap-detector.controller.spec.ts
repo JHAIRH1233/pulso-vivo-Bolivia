@@ -1,5 +1,6 @@
 import { BadRequestException, PayloadTooLargeException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { InstitutionApiKeyGuard } from '../../shared/security/institution-api-key.guard';
 import { GapDetectorController } from './gap-detector.controller';
 import { GapDetectorService } from './gap-detector.service';
 
@@ -16,7 +17,10 @@ describe('GapDetectorController', () => {
       providers: [
         { provide: GapDetectorService, useValue: gapDetectorService },
       ],
-    }).compile();
+    })
+      .overrideGuard(InstitutionApiKeyGuard)
+      .useValue({ canActivate: jest.fn().mockReturnValue(true) })
+      .compile();
 
     controller = module.get(GapDetectorController);
   });

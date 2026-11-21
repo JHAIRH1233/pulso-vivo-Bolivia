@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { CommunicationPreview } from '../shared/components/communication-preview';
-import { publicCommuniques } from '../shared/mocks/public-communiques';
+import { getPublishedCommuniques } from '../shared/api/public-communiques';
 
 const dateFormatter = new Intl.DateTimeFormat('es-BO', {
   dateStyle: 'long',
   timeZone: 'UTC',
 });
+
+export const dynamic = 'force-dynamic';
 
 const steps = [
   {
@@ -50,7 +52,16 @@ const institutionBenefits = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  let communiques: Awaited<ReturnType<typeof getPublishedCommuniques>> = [];
+  let communiqueError = false;
+  try {
+    communiques = await getPublishedCommuniques();
+  } catch (error) {
+    console.error('Could not load published communiques', error);
+    communiqueError = true;
+  }
+
   return (
     <div className="landing-page">
       <section className="hero-section" aria-labelledby="hero-title">
@@ -167,34 +178,46 @@ export default function Home() {
             <h2 id="communiques-title">Conoce los comunicados</h2>
           </div>
           <p>
-            Estos ejemplos muestran cómo podría presentarse la información.
-            No son avisos oficiales.
+            Comunicados publicados por las instituciones.
           </p>
         </div>
 
-        <div className="communique-grid">
-          {publicCommuniques.map((communique) => (
+        {communiqueError ? (
+          <p className="form-message" role="alert">
+            No se pudieron cargar los comunicados. Intenta actualizar la página.
+          </p>
+        ) : communiques.length === 0 ? (
+          <p>No hay comunicados publicados en este momento.</p>
+        ) : (
+          <div className="communique-grid">
+          {communiques.map((communique) => (
             <article className="communique-card" key={communique.id}>
               <div className="communique-card__meta">
-                <span className="category-tag">{communique.category}</span>
-                <time dateTime={communique.publishedAt}>
-                  {dateFormatter.format(new Date(communique.publishedAt))}
-                </time>
+                <span className="category-tag">{communique.language}</span>
+                {communique.publishedAt && (
+                  <time dateTime={communique.publishedAt}>
+                    {dateFormatter.format(new Date(communique.publishedAt))}
+                  </time>
+                )}
               </div>
               <h3>
-                <Link href={`/c/${communique.id}`}>{communique.title}</Link>
+                <Link href={`/c/${communique.slug}`}>{communique.title}</Link>
               </h3>
-              <p>{communique.summary}</p>
+              <p>
+                {communique.simplifiedContent ??
+                  'Consulta el contenido completo del comunicado.'}
+              </p>
               <Link
                 className="text-link"
-                href={`/c/${communique.id}`}
+                href={`/c/${communique.slug}`}
                 aria-label={`Leer ${communique.title}`}
               >
                 Leer comunicado <span aria-hidden="true">→</span>
               </Link>
             </article>
           ))}
-        </div>
+          </div>
+        )}
       </section>
 
       <section
@@ -210,8 +233,8 @@ export default function Home() {
             falta y comprender las preguntas de la comunidad.
           </p>
           <p className="demo-disclaimer">
-            Las funciones para instituciones aún están en desarrollo. Esta
-            sección muestra una propuesta.
+            Las herramientas institucionales están disponibles en el panel y
+            requieren una clave de acceso configurada por el equipo.
           </p>
           <Link className="button button--primary" href="#como-funciona">
             Conocer el proceso

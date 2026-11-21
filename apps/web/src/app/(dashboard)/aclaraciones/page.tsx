@@ -1,6 +1,11 @@
-import { draftClarifications } from '../../../shared/mocks/institutional-dashboard';
+import { ClarificationsPanel } from '../../../shared/components/clarifications-panel';
 
-export default function DashboardClarificationsPage() {
+export default async function DashboardClarificationsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ clusterId?: string }>;
+}) {
+  const { clusterId } = await searchParams;
   return (
     <section
       className="dashboard-page"
@@ -10,25 +15,11 @@ export default function DashboardClarificationsPage() {
         <p className="section-kicker">Revisión editorial</p>
         <h1 id="dashboard-clarifications-title">Aclaraciones propuestas</h1>
         <p>
-          Borradores de ejemplo para que el equipo institucional los revise y
-          redacte con información oficial antes de compartirlos.
+          Crea borradores, revísalos y publícalos después de confirmar cada dato
+          con información oficial.
         </p>
       </header>
-      <div className="dashboard-card-grid">
-        {draftClarifications.map((clarification) => (
-          <article className="dashboard-panel" key={clarification.title}>
-            <div className="dashboard-card__meta">
-              <span className="dashboard-status">{clarification.status}</span>
-              <span>{clarification.source}</span>
-            </div>
-            <h2>{clarification.title}</h2>
-            <p>{clarification.body}</p>
-            <p className="dashboard-demo-label">
-              Borrador de demostración · no publicado
-            </p>
-          </article>
-        ))}
-      </div>
+      <ClarificationsPanel initialClusterId={clusterId} />
     </section>
   );
 }

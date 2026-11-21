@@ -4,13 +4,16 @@ import {
   Controller,
   PayloadTooLargeException,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { InstitutionApiKeyGuard } from '../../shared/security/institution-api-key.guard';
 import { SimplifierService } from './simplifier.service';
 import { SimplifierResult } from './simplifier.types';
 
 const MAX_ANNOUNCEMENT_LENGTH = 20_000;
 
 @Controller('simplifier')
+@UseGuards(InstitutionApiKeyGuard)
 export class SimplifierController {
   constructor(private readonly simplifierService: SimplifierService) {}
 

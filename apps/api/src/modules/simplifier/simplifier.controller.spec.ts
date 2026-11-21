@@ -1,5 +1,6 @@
 import { BadRequestException, PayloadTooLargeException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { InstitutionApiKeyGuard } from '../../shared/security/institution-api-key.guard';
 import { SimplifierController } from './simplifier.controller';
 import { SimplifierService } from './simplifier.service';
 
@@ -14,7 +15,10 @@ describe('SimplifierController', () => {
     const module = await Test.createTestingModule({
       controllers: [SimplifierController],
       providers: [{ provide: SimplifierService, useValue: simplifierService }],
-    }).compile();
+    })
+      .overrideGuard(InstitutionApiKeyGuard)
+      .useValue({ canActivate: jest.fn().mockReturnValue(true) })
+      .compile();
 
     controller = module.get(SimplifierController);
   });
