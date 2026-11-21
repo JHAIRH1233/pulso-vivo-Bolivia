@@ -3,8 +3,9 @@ import { AppShell } from '../shared/components/app-shell';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'PULSO VIVO Bolivia',
-  description: 'Comunicación institucional clara, inclusiva y accesible',
+  title: 'PULSO VIVO Bolivia | Información pública clara',
+  description:
+    'Consulta comunicados de demostración y participa con preguntas en PULSO VIVO Bolivia.',
 };
 
 export default function RootLayout({

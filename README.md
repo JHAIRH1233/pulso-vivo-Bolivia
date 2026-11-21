@@ -37,6 +37,10 @@ La API expone solo comunicados publicados; no ofrece operaciones de escritura si
 
 Estos endpoints requieren que `DATABASE_URL` apunte a PostgreSQL y que las migraciones estén aplicadas. La conexión es bajo demanda, por lo que el resto de la API puede iniciar sin conectar a la base de datos.
 
+## Web pública
+
+La web pública muestra comunicados y un formulario de preguntas con datos de demostración. Las interacciones no llaman a la API ni guardan preguntas; las rutas de muestra son `/`, `/c/:id` y `/preguntar`.
+
 ## Preguntas
 
 `POST /api/questions` recibe preguntas ciudadanas y las guarda con estado `PENDING` para revisión. El cuerpo admite `text` (obligatorio, máximo 2.000 caracteres), `language` (`ES` o `QU`, predeterminado `ES`) y `communiqueId` (UUID opcional, solo si corresponde a un comunicado publicado). No hay endpoints públicos para leer o responder preguntas pendientes.
