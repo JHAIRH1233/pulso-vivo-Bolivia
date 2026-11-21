@@ -5,6 +5,9 @@
   "description": "IA para una comunicación institucional más clara, inclusiva y accesible (español y quechua)",
   "scripts": {
     "dev:api": "pnpm --filter api dev",
-    "dev:web": "pnpm --filter web dev"
-  }
+    "dev:web": "pnpm --filter web dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test"
+  },
+  "packageManager": "pnpm@12.21.0"
 }
