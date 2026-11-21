@@ -38,6 +38,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Validate database schema
+        run: pnpm --filter api exec prisma validate
+        env:
+          DATABASE_URL: postgresql://pulso:pulso@localhost:5432/pulsovivo
+
+      - name: Generate Prisma Client
+        run: pnpm --filter api db:generate
+        env:
+          DATABASE_URL: postgresql://pulso:pulso@localhost:5432/pulsovivo
+
       - name: Test API
         run: pnpm --filter api exec jest --runInBand
 
