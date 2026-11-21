@@ -85,4 +85,44 @@ describe('GapDetectorService', () => {
       BadGatewayException,
     );
   });
+
+  it('requires missing-information findings to have null evidence', async () => {
+    llmClient.completeJson.mockResolvedValue(
+      JSON.stringify({
+        missingInformation: [
+          {
+            topic: 'Lugar',
+            explanation: 'No se indica el lugar.',
+            evidence: 'Lugar inventado',
+            clarifyingQuestion: '¿Dónde será?',
+          },
+        ],
+        ambiguities: [],
+      }),
+    );
+
+    await expect(service.analyze('Actividad pública')).rejects.toBeInstanceOf(
+      BadGatewayException,
+    );
+  });
+
+  it('requires ambiguity evidence to be quoted from the announcement', async () => {
+    llmClient.completeJson.mockResolvedValue(
+      JSON.stringify({
+        missingInformation: [],
+        ambiguities: [
+          {
+            topic: 'Fecha',
+            explanation: 'La fecha no es precisa.',
+            evidence: 'el próximo lunes',
+            clarifyingQuestion: '¿A qué fecha se refiere?',
+          },
+        ],
+      }),
+    );
+
+    await expect(service.analyze('Actividad el viernes')).rejects.toBeInstanceOf(
+      BadGatewayException,
+    );
+  });
 });
