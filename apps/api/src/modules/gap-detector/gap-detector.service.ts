@@ -28,22 +28,37 @@ export class GapDetectorService {
       throw new BadGatewayException('The LLM provider returned invalid JSON');
     }
 
-    return parseResult(result);
+    return parseResult(result, text);
   }
 }
 
-function parseResult(value: unknown): GapDetectorResult {
+function parseResult(
+  value: unknown,
+  announcement: string,
+): GapDetectorResult {
   if (!isRecord(value)) {
     throw invalidResult();
   }
 
   return {
-    missingInformation: parseFindings(value['missingInformation']),
-    ambiguities: parseFindings(value['ambiguities']),
+    missingInformation: parseFindings(
+      value['missingInformation'],
+      (evidence) => evidence === null,
+    ),
+    ambiguities: parseFindings(
+      value['ambiguities'],
+      (evidence) =>
+        typeof evidence === 'string' &&
+        evidence.trim().length > 0 &&
+        announcement.includes(evidence),
+    ),
   };
 }
 
-function parseFindings(value: unknown): GapFinding[] {
+function parseFindings(
+  value: unknown,
+  isValidEvidence: (evidence: unknown) => boolean,
+): GapFinding[] {
   if (!Array.isArray(value) || value.length > 10) {
     throw invalidResult();
   }
@@ -59,7 +74,7 @@ function parseFindings(value: unknown): GapFinding[] {
       !topic.trim() ||
       typeof explanation !== 'string' ||
       !explanation.trim() ||
-      (typeof evidence !== 'string' && evidence !== null) ||
+      !isValidEvidence(evidence) ||
       typeof clarifyingQuestion !== 'string' ||
       !clarifyingQuestion.trim()
     ) {
