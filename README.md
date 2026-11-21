@@ -44,3 +44,9 @@ La web pública muestra comunicados y un formulario de preguntas con datos de de
 ## Preguntas
 
 `POST /api/questions` recibe preguntas ciudadanas y las guarda con estado `PENDING` para revisión. El cuerpo admite `text` (obligatorio, máximo 2.000 caracteres), `language` (`ES` o `QU`, predeterminado `ES`) y `communiqueId` (UUID opcional, solo si corresponde a un comunicado publicado). No hay endpoints públicos para leer o responder preguntas pendientes.
+
+## Traducción y audio
+
+La traducción usa el proveedor LLM configurado con `LLM_API_KEY`, `LLM_BASE_URL` y `LLM_MODEL`. `POST /api/translation/to-quechua` recibe `{ "text": "..." }` (máximo 20.000 caracteres) y devuelve `{ "translatedText": "..." }` en quechua boliviano.
+
+La síntesis usa OpenAI Text-to-Speech y requiere `TTS_API_KEY`. `POST /api/audio/synthesize` recibe `{ "text": "..." }` (máximo 4.000 caracteres) y devuelve `{ "audioBase64": "...", "mimeType": "audio/mpeg" }`. El audio se genera bajo demanda y no se guarda. La calidad de pronunciación en quechua debe validarse con hablantes antes de producción.
