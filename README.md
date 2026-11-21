@@ -48,3 +48,9 @@ La web pública muestra comunicados y un formulario de preguntas con datos de de
 ## Asistente ciudadano
 
 `POST /api/assistant/answer` responde una pregunta usando únicamente un comunicado publicado identificado por su `communiqueSlug`. El cuerpo admite `question` (máximo 2.000 caracteres) y `communiqueSlug` (máximo 180 caracteres). La respuesta incluye el texto, un fragmento textual de respaldo cuando existe y el comunicado utilizado. Las preguntas no se guardan; se envían junto con el contenido publicado al proveedor LLM configurado. No incluyas datos personales.
+
+## Traducción y audio
+
+La traducción usa el proveedor LLM configurado con `LLM_API_KEY`, `LLM_BASE_URL` y `LLM_MODEL`. `POST /api/translation/to-quechua` recibe `{ "text": "..." }` (máximo 20.000 caracteres) y devuelve `{ "translatedText": "..." }` en quechua boliviano.
+
+La síntesis usa OpenAI Text-to-Speech y requiere `TTS_API_KEY`. `POST /api/audio/synthesize` recibe `{ "text": "..." }` (máximo 4.000 caracteres) y devuelve `{ "audioBase64": "...", "mimeType": "audio/mpeg" }`. El audio se genera bajo demanda y no se guarda. La calidad de pronunciación en quechua debe validarse con hablantes antes de producción.
