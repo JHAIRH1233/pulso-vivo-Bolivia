@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import { AppShell } from '../shared/components/app-shell';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'PULSO VIVO Bolivia',
-  description: 'Comunicacion institucional clara e inclusiva',
+  description: 'Comunicación institucional clara, inclusiva y accesible',
 };
 
 export default function RootLayout({
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <AppShell>{children}</AppShell>
+      </body>
     </html>
   );
 }
