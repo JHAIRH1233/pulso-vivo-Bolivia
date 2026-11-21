@@ -3,9 +3,9 @@ import { AppShell } from '../shared/components/app-shell';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'PULSO VIVO Bolivia | Información pública clara',
+  title: 'Rimay | Tu idioma. Tu voz. Tu municipio.',
   description:
-    'Consulta comunicados de demostración y participa con preguntas en PULSO VIVO Bolivia.',
+    'Prototipo de comunicación pública clara en español y palabras simples; el quechua está en desarrollo.',
 };
 
 export default function RootLayout({
