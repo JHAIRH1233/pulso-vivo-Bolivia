@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CommuniqueStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentLanguage {
+  ES
+  QU
+}
+
+enum QuestionStatus {
+  PENDING
+  ANSWERED
+  CLOSED
+}
+
+model Communique {
+  id                String                  @id @default(uuid()) @db.Uuid
+  slug              String                  @unique @db.VarChar(180)
+  title             String                  @db.VarChar(240)
+  content           String                  @db.Text
+  simplifiedContent String?                 @db.Text
+  language          ContentLanguage         @default(ES)
+  status            CommuniqueStatus        @default(DRAFT)
+  publishedAt       DateTime?               @db.Timestamptz(6)
+  createdAt         DateTime                @default(now()) @db.Timestamptz(6)
+  updatedAt         DateTime                @updatedAt @db.Timestamptz(6)
+  translations      CommuniqueTranslation[]
+  questions         Question[]
+
+  @@index([status, publishedAt])
+}
+
+model CommuniqueTranslation {
+  id           String          @id @default(uuid()) @db.Uuid
+  communiqueId String          @db.Uuid
+  language     ContentLanguage
+  title        String          @db.VarChar(240)
+  content      String          @db.Text
+  audioUrl     String?         @db.Text
+  createdAt    DateTime        @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime        @updatedAt @db.Timestamptz(6)
+  communique   Communique      @relation(fields: [communiqueId], references: [id], onDelete: Cascade)
+
+  @@unique([communiqueId, language])
+}
+
+model Question {
+  id           String          @id @default(uuid()) @db.Uuid
+  communiqueId String?         @db.Uuid
+  text         String          @db.Text
+  answer       String?         @db.Text
+  language     ContentLanguage @default(ES)
+  status       QuestionStatus  @default(PENDING)
+  createdAt    DateTime        @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime        @updatedAt @db.Timestamptz(6)
+  communique   Communique?     @relation(fields: [communiqueId], references: [id], onDelete: SetNull)
+
+  @@index([communiqueId, status])
+  @@index([status, createdAt])
+}
