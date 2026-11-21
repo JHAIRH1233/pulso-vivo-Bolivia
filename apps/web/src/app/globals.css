@@ -1156,3 +1156,247 @@ select {
     font-size: 0.78rem;
   }
 }
+
+.institutional-dashboard {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.dashboard-header {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dashboard-header__copy p {
+  margin: 0;
+}
+
+.dashboard-header__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dashboard-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dashboard-nav a {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dashboard-nav a:hover,
+.dashboard-nav a:focus-visible {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dashboard-demo-note {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--color-focus);
+  border-radius: 0.5rem;
+  background: #fff3dc;
+  color: var(--color-text);
+}
+
+.dashboard-page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.dashboard-page__header {
+  max-width: 46rem;
+}
+
+.dashboard-page__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.dashboard-page__header > p:last-child {
+  margin: 0.8rem 0 0;
+  color: var(--color-muted);
+}
+
+.dashboard-metrics,
+.dashboard-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-metric,
+.dashboard-panel {
+  min-width: 0;
+  padding: clamp(1.1rem, 3vw, 1.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dashboard-metric {
+  display: grid;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.dashboard-metric > span:first-child {
+  color: var(--color-muted);
+}
+
+.dashboard-metric strong {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.dashboard-metric__link {
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.dashboard-metric:hover {
+  border-color: var(--color-primary);
+}
+
+.dashboard-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr);
+  gap: 1rem;
+}
+
+.dashboard-panel h2 {
+  margin: 0.35rem 0 0.65rem;
+  font-size: 1.2rem;
+  line-height: 1.35;
+}
+
+.dashboard-panel p {
+  color: var(--color-muted);
+}
+
+.dashboard-panel__heading,
+.dashboard-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.dashboard-panel__heading h2 {
+  margin-bottom: 0;
+}
+
+.dashboard-list,
+.dashboard-action-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dashboard-list__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.dashboard-list__item h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.dashboard-list__item p {
+  margin: 0.35rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.dashboard-status {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-lavender);
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.dashboard-action-list a {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.75rem;
+  border-radius: 0.7rem;
+  text-decoration: none;
+}
+
+.dashboard-action-list a:hover {
+  background: var(--color-lavender);
+}
+
+.dashboard-action-list span,
+.dashboard-card__meta > span:last-child,
+.dashboard-card__meta time {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.dashboard-communique {
+  display: grid;
+  align-content: start;
+}
+
+.dashboard-communique > p {
+  margin: 0 0 1rem;
+}
+
+.dashboard-evidence {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-page);
+  color: var(--color-text);
+}
+
+.dashboard-demo-label {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 48rem) {
+  .dashboard-overview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 32rem) {
+  .dashboard-metrics,
+  .dashboard-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-list__item {
+    display: grid;
+  }
+}

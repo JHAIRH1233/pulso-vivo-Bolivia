@@ -41,6 +41,10 @@ Estos endpoints requieren que `DATABASE_URL` apunte a PostgreSQL y que las migra
 
 La web pública muestra comunicados y un formulario de preguntas con datos de demostración. Las interacciones no llaman a la API ni guardan preguntas; las rutas de muestra son `/`, `/c/:id` y `/preguntar`.
 
+## Panel institucional
+
+El panel de demostración está disponible en `/dashboard` y sus secciones `/comunicados`, `/brechas`, `/radar` y `/aclaraciones`. Usa datos ilustrativos; no requiere autenticación y no guarda cambios. El radar y las aclaraciones no están conectados a una API.
+
 ## Preguntas
 
 `POST /api/questions` recibe preguntas ciudadanas y las guarda con estado `PENDING` para revisión. El cuerpo admite `text` (obligatorio, máximo 2.000 caracteres), `language` (`ES` o `QU`, predeterminado `ES`) y `communiqueId` (UUID opcional, solo si corresponde a un comunicado publicado). No hay endpoints públicos para leer o responder preguntas pendientes.
