@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Test API
+        run: pnpm --filter api exec jest --runInBand
+
       - name: Build API
         run: pnpm --filter api build
 
