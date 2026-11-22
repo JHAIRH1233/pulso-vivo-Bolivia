@@ -1,119 +1,34 @@
+'use client';
+
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { CommuniqueTools } from '../../../../shared/components/communique-tools';
-import {
-  getPublishedClarifications,
-  getPublishedCommunique,
-  PublicClarification,
-} from '../../../../shared/api/public-communiques';
+import { useParams, useRouter } from 'next/navigation';
+import { DocumentViewer } from '../../../../shared/components/document-viewer';
+import { MOCK_DOCUMENTS } from '../../../../shared/data/mock-documents';
 
-const dateFormatter = new Intl.DateTimeFormat('es-BO', {
-  dateStyle: 'long',
-  timeZone: 'UTC',
-});
+export default function PublicCommuniqueCompatPage() {
+  const params = useParams();
+  const router = useRouter();
+  const slug = params.id as string;
 
-export const dynamic = 'force-dynamic';
-
-export default async function PublicCommuniquePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id: slug } = await params;
-  let communique: Awaited<ReturnType<typeof getPublishedCommunique>>;
-  try {
-    communique = await getPublishedCommunique(slug);
-  } catch (error) {
-    console.error('Could not load published communique', error);
-    return (
-      <section className="public-article" role="alert">
-        <p>No se pudo cargar el comunicado. Intenta actualizar la página.</p>
-        <Link className="back-link" href="/">
-          Volver a comunicados
-        </Link>
-      </section>
-    );
-  }
-
-  if (!communique) {
-    notFound();
-  }
-
-  let clarifications: PublicClarification[] = [];
-  let clarificationsError = false;
-  try {
-    clarifications = await getPublishedClarifications(communique.id);
-  } catch (error) {
-    console.error('Could not load published clarifications', error);
-    clarificationsError = true;
-  }
+  const doc =
+    MOCK_DOCUMENTS.find((d) => d.slug === slug || d.id === slug) ||
+    MOCK_DOCUMENTS[0];
 
   return (
-    <article className="public-article" aria-labelledby="communique-title">
-      <Link className="back-link" href="/">
-        <span aria-hidden="true">←</span> Volver a comunicados
-      </Link>
-
-      <header className="public-article__header">
-        <p className="eyebrow">{communique.language}</p>
-        <h1 id="communique-title">{communique.title}</h1>
-        {communique.publishedAt && (
-          <time dateTime={communique.publishedAt}>
-            Publicado el{' '}
-            {dateFormatter.format(new Date(communique.publishedAt))}
-          </time>
-        )}
-      </header>
-
-      <aside className="plain-language" aria-labelledby="plain-language-title">
-        <p className="eyebrow">En pocas palabras</p>
-        <h2 id="plain-language-title">Lo esencial</h2>
-        <p>
-          {communique.simplifiedContent ??
-            'Este comunicado aún no cuenta con una versión en palabras simples.'}
-        </p>
-      </aside>
-
-      <section className="public-article__body" aria-label="Contenido del comunicado">
-        {communique.content.split(/\n{2,}/).map((paragraph, index) => (
-          <p key={`${index}-${paragraph}`}>{paragraph}</p>
-        ))}
-      </section>
-
-      <CommuniqueTools
-        slug={communique.slug}
-        title={communique.title}
-        content={communique.content}
-        simplifiedContent={communique.simplifiedContent}
-        translations={communique.translations}
-      />
-
-      {clarificationsError ? (
-        <p className="form-message" role="alert">
-          No se pudieron cargar las aclaraciones de este comunicado.
-        </p>
-      ) : (
-        clarifications.length > 0 && (
-          <section className="public-clarifications" aria-labelledby="clarifications-title">
-            <h2 id="clarifications-title">Aclaraciones oficiales</h2>
-            {clarifications.map((clarification) => (
-              <article className="dashboard-panel" key={clarification.id}>
-                <h3>{clarification.title}</h3>
-                <p>{clarification.content}</p>
-              </article>
-            ))}
-          </section>
-        )
-      )}
-
-      <div className="article-actions">
+    <div className="page-container py-8 sm:py-12">
+      <div className="mb-6">
         <Link
-          className="button button--primary"
-          href={`/preguntar?comunicado=${communique.id}`}
+          href="/"
+          className="inline-flex items-center gap-2 text-xs font-bold text-primary transition hover:underline"
         >
-          Preguntar sobre este comunicado
+          <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span>Volver al inicio</span>
         </Link>
       </div>
-    </article>
+
+      <DocumentViewer doc={doc} onClose={() => router.push('/')} />
+    </div>
   );
 }

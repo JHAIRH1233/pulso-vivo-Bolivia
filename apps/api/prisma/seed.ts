@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
 import { config } from 'dotenv';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../dist/src/generated/prisma-client/client.js';
+import { PrismaClient } from '../dist/generated/prisma-client/client.js';
 
 config({ path: resolve(process.cwd(), '../../.env') });
 config({ path: resolve(process.cwd(), '.env') });
@@ -208,7 +208,76 @@ Bancokunapi, QR nisqawanpas utqhayllata pagayta atinkichik. Ama suyakuychikchu!`
     },
   });
 
-  console.log('✅ Base de datos poblada exitosamente con 3 comunicados oficiales, traducciones, preguntas y aclaraciones.');
+  // 4. Noticia: Centro de Salud Kallpa Wasi (Zona Sur)
+  await prisma.communique.create({
+    data: {
+      slug: 'inauguracion-centro-salud-zona-sur',
+      title: 'Inauguración del Nuevo Centro de Salud Integral con Atención Bilingüe en la Zona Sur',
+      language: 'ES',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      content: `El Gobierno Autónomo Municipal de Cochabamba entrega a los vecinos del Distrito 8 el nuevo Centro de Salud Integral 'Kallpa Wasi', equipado con tecnología médica moderna y personal bilingüe capacitado en quechua y español.
+
+El establecimiento prestará servicios de medicina general, odontología, pediatría, laboratorio clínico, farmacia y atención de emergencias las 24 horas del día, los 7 días de la semana.
+
+BENEFICIARIOS:
+Más de 35.000 familias de los barrios del Cono Sur y comunidades aledañas que antes debían trasladarse hasta el centro de la ciudad para recibir atención básica.`,
+      simplifiedContent: `¡Nuevo centro de salud 24 horas con atención en quechua y español en la Zona Sur!
+
+• Ubicación: Distrito 8 (Kallpa Wasi).
+• Atención: Médicos de guardia las 24 horas, todos los días del año.
+• Servicios disponibles: Medicina general, pediatría, odontología, farmacia municipal y laboratorio.
+• Importante: El personal médico habla quechua y español para que te sientas cómodo explicando tus síntomas.`,
+      translations: {
+        create: [
+          {
+            language: 'QU',
+            title: 'Distrito 8 nisqapi Kallpa Wasi hampi wasi kicharikun',
+            content: `Musuq Centro de Salud 'Kallpa Wasi' nisqa kicharikun Distrito 8 kiti suyupi. Doctoreskuna quechua simipi castellanopipas rimanku. 24 horas p'unchaw tuta qhasi qhawasunki.`,
+          },
+        ],
+      },
+    },
+  });
+
+  // 5. Convocatoria: Becas y Prácticas Municipales UMSS
+  await prisma.communique.create({
+    data: {
+      slug: 'convocatoria-becas-pasantias-municipales-2026',
+      title: 'Convocatoria Pública a Becas Universitarias y Prácticas Municipales 2026',
+      language: 'ES',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      content: `La Universidad Mayor de San Simón (UMSS), en convenio interinstitucional con el Gobierno Autónomo Municipal de Cochabamba, convoca a estudiantes de los últimos cursos de todas las carreras al Programa de Prácticas Profesionales y Becas de Apoyo a la Gestión Municipal 2026.
+
+REQUISITOS:
+- Ser estudiante regular matriculado en la gestión académica actual.
+- Haber aprobado al menos el 75% de la malla curricular correspondiente.
+- Promedio académico ponderado igual o superior a 65 puntos.
+- Disponibilidad de cuatro (4) horas diarias continuas en turno mañana o tarde.
+
+BENEFICIOS:
+- Asignación económica mensual para transporte y refrigerio.
+- Certificación oficial con valor curricular emitida conjuntamente por la UMSS y la Alcaldía.`,
+      simplifiedContent: `Convocatoria abierta para pasantías pagadas de estudiantes de la UMSS en la Alcaldía.
+
+• ¿Quiénes pueden postular?: Estudiantes que hayan vencido al menos el 75% de sus materias y tengan promedio de 65 puntos o más.
+• Horario: 4 horas al día (puedes elegir en la mañana o en la tarde).
+• Beneficios: Apoyo económico mensual para pasajes y refrigerio, y certificado oficial para tu currículum.
+• Fechas: Del 1 al 15 de diciembre en la Dirección de Interacción Social de la UMSS.`,
+      translations: {
+        create: [
+          {
+            language: 'QU',
+            title: 'UMSS yachakuqkunapaq Alcaldiapi llamk\'aymanta willakuy',
+            content: `UMSS yachay wasimanta Alcaldiamanpas llamk'ayta munaspa, yachakuqkunapaq musuq becaskuna llamk'aykunapas kan. Utqhayllata qillqachikuychik!`,
+          },
+        ],
+      },
+    },
+  });
+
+  console.log('✅ Base de datos poblada exitosamente con 5 documentos oficiales (comunicados, noticias, convocatorias y beneficios), traducciones, preguntas y aclaraciones.');
 }
 
 main()
