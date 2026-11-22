@@ -4,13 +4,16 @@ import {
   Controller,
   PayloadTooLargeException,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { InstitutionApiKeyGuard } from '../../shared/security/institution-api-key.guard';
 import { GapDetectorService } from './gap-detector.service';
 import { GapDetectorResult } from './gap-detector.types';
 
 const MAX_ANNOUNCEMENT_LENGTH = 20_000;
 
 @Controller('gap-detector')
+@UseGuards(InstitutionApiKeyGuard)
 export class GapDetectorController {
   constructor(private readonly gapDetectorService: GapDetectorService) {}
 
