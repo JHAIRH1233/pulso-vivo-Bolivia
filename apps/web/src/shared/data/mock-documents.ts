@@ -194,24 +194,19 @@ export const MOCK_DOCUMENTS: DocumentItem[] = [
     ],
     "faqs": [
       {
-        "question": "que otros pasos tengo que hacer",
-        "answer": "Para más información sobre este punto en Gobierno Autónomo Municipal de Cochabamba, consulta la versión simple del comunicado o comunícate con la entidad oficial.",
-        "answerQuechua": "Astawan willakuyta munanki chayqa, versión simple nisqata qhaway icha oficial wasipi tapurikuy."
+        "question": "¿Qué requisitos hay?",
+        "answer": "Debes presentar fotocopia de tu cédula de identidad, croquis de ubicación del local y la declaración jurada de actividad económica.",
+        "answerQuechua": "Cédulaykip ranti qillqata, localniykimapaq siq'ita, actividadniykimanta declaracióntapas apamunayki tiyan."
       },
       {
-        "question": "¿Atienden los sábados?",
-        "answer": "Para más información sobre este punto en Gobierno Autónomo Municipal de Cochabamba, consulta la versión simple del comunicado o comunícate con la entidad oficial.",
-        "answerQuechua": "Astawan willakuyta munanki chayqa, versión simple nisqata qhaway icha oficial wasipi tapurikuy."
+        "question": "¿Dónde presento la solicitud?",
+        "answer": "La solicitud se presenta de forma presencial en las oficinas de atención al contribuyente del municipio de Cochabamba, de lunes a viernes.",
+        "answerQuechua": "Mañakuytaqa Cochabamba municipio contribuyente atendina wasikunapi churanayki tiyan, lunesta vierniskama."
       },
       {
-        "question": "¿Sirve la licencia que ya tengo?",
-        "answer": "Para más información sobre este punto en Gobierno Autónomo Municipal de Cochabamba, consulta la versión simple del comunicado o comunícate con la entidad oficial.",
-        "answerQuechua": "Astawan willakuyta munanki chayqa, versión simple nisqata qhaway icha oficial wasipi tapurikuy."
-      },
-      {
-        "question": "¿Dónde se presenta la solicitud?",
-        "answer": "Para más información sobre este punto en Gobierno Autónomo Municipal de Cochabamba, consulta la versión simple del comunicado o comunícate con la entidad oficial.",
-        "answerQuechua": "Astawan willakuyta munanki chayqa, versión simple nisqata qhaway icha oficial wasipi tapurikuy."
+        "question": "¿Cuánto cuesta?",
+        "answer": "El comunicado oficial no especifica el costo del trámite; es una de las brechas detectadas pendientes de aclaración por la Alcaldía.",
+        "answerQuechua": "Comunicadopiqa mana qullqimanta sut'inchankuchu; municipio clarified kanan tiyan."
       }
     ]
   },
