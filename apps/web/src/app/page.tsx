@@ -298,6 +298,71 @@ export default function HomePage() {
           <DocumentViewer doc={activeDoc} onClose={() => setActiveDoc(null)} />
         </section>
       )}
+
+      {/* 5. Official Sources (Transparencia) */}
+      <section id="fuentes" className="bg-white py-14 sm:py-20 -mb-20">
+        <div className="page-container">
+          <div className="max-w-2xl">
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.18em] text-primary">
+              Transparencia
+            </p>
+            <h2 className="mt-2 font-heading text-2xl font-bold text-foreground sm:text-3xl">
+              Fuentes oficiales
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/70 sm:text-base">
+              Los documentos de este prototipo se inspiran en información pública. Verifica siempre el dato final en los canales oficiales de cada institución.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                nombre: 'Alcaldía de Cochabamba',
+                url: 'https://www.cochabamba.bo/',
+                descripcion: 'Sitio oficial del Gobierno Autónomo Municipal de Cochabamba.',
+              },
+              {
+                nombre: 'Innova Cochabamba (consulta Atlas)',
+                url: 'https://innova.cochabamba.bo/menu-consultaAtlas',
+                descripcion: 'Consulta de información territorial y catastral del municipio.',
+              },
+              {
+                nombre: 'Portal del Estado: GAM de Cochabamba',
+                url: 'https://www.gob.bo/entidades/gobierno-autonomo-municipal-de-cochabamba',
+                descripcion: 'Ficha oficial del municipio en el Portal del Estado boliviano.',
+              },
+            ].map((f) => (
+              <a
+                key={f.nombre}
+                href={f.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md"
+              >
+                <div>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" />
+                    </svg>
+                  </span>
+                  <h3 className="mt-4 font-heading text-base font-bold leading-snug text-foreground group-hover:text-primary">
+                    {f.nombre}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/65">
+                    {f.descripcion}
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center gap-1.5 text-xs font-bold text-primary">
+                  <span>Visitar portal</span>
+                  <svg className="h-3.5 w-3.5 transition group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
